@@ -1,3 +1,48 @@
+export interface NavLink {
+  id: string;
+  label: string;
+}
+
+export interface Stat {
+  label: string;
+  value: string;
+}
+
+export interface Project {
+  id: number;
+  name: string;
+  tagline: string;
+  timeline: string;
+  team: string;
+  problem: string;
+  solution: string;
+  highlights: string[];
+  tech: string[];
+  github: string;
+  demo: string | null;
+  image: string | null;
+}
+
+export interface TechItem {
+  name: string;
+  primary: boolean;
+  icon: string;
+}
+
+export interface InterestTag {
+  iconClass: string | null;
+  label: string;
+  url: string;
+}
+
+export interface InterestItem {
+  id: number;
+  iconClass: string | null;
+  title: string;
+  description: string;
+  tags: InterestTag[];
+}
+
 export const personalInfo = {
   name: "Nguyen Hoang Anh",
   role: "Backend Engineer",
@@ -23,10 +68,10 @@ export const about = {
     { label: "Production Projects", value: "3" },
     { label: "Backend Languages", value: "3" },
     { label: "Expertise", value: "System Design & Clean Architecture" }
-  ]
+  ] as Stat[]
 };
 
-export const projects = [
+export const projects: Project[] = [
   {
     id: 1,
     name: "ExamSlot",
@@ -44,7 +89,7 @@ export const projects = [
     tech: ["Java 17", "Spring Boot 3", "PostgreSQL", "Redis", "RabbitMQ", "WebSocket", "JUnit 5", "Docker"],
     github: "https://github.com/nha261105",
     demo: null,
-    image: null   // thêm đường dẫn ảnh ở đây, vd: "/src/assets/examslot-preview.png"
+    image: null
   },
   {
     id: 2,
@@ -63,7 +108,7 @@ export const projects = [
     tech: ["Python", "LangChain", "FAISS", "Ollama (Qwen2.5)", "Streamlit"],
     github: "https://github.com/nha261105",
     demo: null,
-    image: "/src/assets/img_SmartDocAI.png"   // vd: "/src/assets/smartdoc-preview.png"
+    image: "/src/assets/img_SmartDocAI.png"
   },
   {
     id: 3,
@@ -83,12 +128,11 @@ export const projects = [
     tech: ["C# ASP.NET Core 8", "EF Core", "MSSQL", "JWT", "SignalR", "Azure Blob", "Swagger"],
     github: "https://github.com/nha261105",
     demo: null,
-    image: null   // vd: "/src/assets/interacthub-preview.png"
+    image: null
   }
 ];
 
-export const techStack = {
-  // Flat list — 14 items: 3 hàng x 5 + hàng cuối 4 (căn giữa)
+export const techStack: { items: TechItem[]; concepts: string[] } = {
   items: [
     { name: "Java",         primary: true,  icon: "ci ci-java" },
     { name: "Python",       primary: false, icon: "ci ci-python" },
@@ -96,22 +140,19 @@ export const techStack = {
     { name: "Spring Boot",  primary: true,  icon: "ci ci-spring" },
     { name: "ASP.NET Core", primary: false, icon: "ci ci-dotnetcore" },
     { name: "FastAPI",      primary: false, icon: "ci ci-fastapi" },
-    { name: "React",        primary: true, icon: "ci ci-react" },
+    { name: "React",        primary: true,  icon: "ci ci-react" },
     { name: "PostgreSQL",   primary: true,  icon: "ci ci-postgresql" },
     { name: "Supabase",     primary: false, icon: "ci ci-supabase" },
-    { name: "Docker",       primary: true, icon: "ci ci-docker" },
+    { name: "Docker",       primary: true,  icon: "ci ci-docker" },
     { name: "Git",          primary: false, icon: "ci ci-git" },
-    { name: "Postman",      primary: true, icon: "ci ci-postman" },
+    { name: "Postman",      primary: true,  icon: "ci ci-postman" },
     { name: "Swagger",      primary: false, icon: "ci ci-swagger" },
     { name: "JUnit 5",      primary: false, icon: "ci ci-junit" },
     { name: "Latex",        primary: false, icon: "ci ci-latex" },
-    { name: "Vscode",       primary: true, icon: "ci ci-vscode" },
+    { name: "Vscode",       primary: true,  icon: "ci ci-vscode" },
     { name: "IntelliJ",     primary: false, icon: "ci ci-intellij" },
     { name: "Ubuntu",       primary: false, icon: "ci ci-ubuntu" },
-    { name: "Markdown",       primary: false, icon: "ci ci-markdown" },
-
-    
-
+    { name: "Markdown",     primary: false, icon: "ci ci-markdown" },
   ],
   concepts: [
     "RESTful APIs",
@@ -131,16 +172,16 @@ export const education = {
   location: "Ho Chi Minh City, Vietnam"
 };
 
-export const navLinks = [
-  { id: "hero", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "tech-stack", label: "Tech Stack" },
+export const navLinks: NavLink[] = [
+  { id: "hero",      label: "About" },
+  { id: "projects",  label: "Projects" },
+  { id: "tech-stack",label: "Tech Stack" },
   { id: "education", label: "Education" },
   { id: "interests", label: "Interests" },
-  { id: "contact", label: "Contact" }
+  { id: "contact",   label: "Contact" }
 ];
 
-export const interests = [
+export const interests: InterestItem[] = [
   {
     id: 1,
     iconClass: "ci ci-spotify ci-xl",
@@ -157,7 +198,7 @@ export const interests = [
     description: "Solve problem hàng ngày, yêu thích thuật toán và tối ưu.",
     tags: [
       { iconClass: "ci ci-codeforces", label: "Codeforces", url: "https://codeforces.com/profile/Kurano" },
-      { iconClass: "ci ci-leetcode", label: "LeetCode", url: "https://leetcode.com/u/kurano26" },
+      { iconClass: "ci ci-leetcode",   label: "LeetCode",   url: "https://leetcode.com/u/kurano26" },
     ],
   },
   {

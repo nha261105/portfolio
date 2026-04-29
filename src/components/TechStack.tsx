@@ -1,12 +1,7 @@
 import { motion } from 'framer-motion';
 import { FiCode } from 'react-icons/fi';
 import { techStack } from '../constants/data';
-
-interface TechItem {
-  name: string;
-  primary?: boolean;
-  icon: string;
-}
+import type { TechItem } from '../constants/data';
 
 const TechCard = ({ tech, index }: { tech: TechItem; index: number }) => (
   <motion.div

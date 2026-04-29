@@ -1,15 +1,7 @@
 import { motion } from 'framer-motion';
 import { FiHeart, FiActivity } from 'react-icons/fi';
 import { interests } from '../constants/data';
-
-interface Tag { iconClass: string | null; label: string; url: string; }
-interface InterestItem {
-  id: number;
-  iconClass: string | null;
-  title: string;
-  description: string;
-  tags: Tag[];
-}
+import type { InterestItem } from '../constants/data';
 
 const cardStyle = {
   background: 'linear-gradient(135deg, rgba(42, 42, 42, 0.8), rgba(26, 26, 26, 0.6))',

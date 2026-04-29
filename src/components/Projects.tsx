@@ -1,21 +1,7 @@
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiFolder } from 'react-icons/fi';
 import { projects } from '../constants/data';
-
-interface Project {
-  id: number;
-  name: string;
-  tagline: string;
-  timeline: string;
-  team: string;
-  problem: string;
-  solution: string;
-  highlights: string[];
-  tech: string[];
-  github: string;
-  demo: string | null;
-  image: string | null;
-}
+import type { Project } from '../constants/data';
 
 const accentColors = [
   { bg: 'from-[#1a2a4a] to-[#0e1a2e]', dot: '#3B82F6' },
@@ -132,7 +118,7 @@ const Projects = () => (
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
+          {projects.map((project: Project, index: number) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
