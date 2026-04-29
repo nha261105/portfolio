@@ -43,6 +43,9 @@ export interface InterestItem {
   tags: InterestTag[];
 }
 
+import meJpg from '../assets/me.jpg';
+import cvPdf from '../assets/CV_Nguyen_Hoang_Anh.pdf';
+
 export const personalInfo = {
   name: "Nguyen Hoang Anh",
   role: "Backend Engineer",
@@ -55,8 +58,8 @@ export const personalInfo = {
   github: "https://github.com/nha261105",
   linkedin: "https://linkedin.com/in/nha261105",
   discord: "https://discord.com/users/1058334582786752615",
-  resume: "/src/assets/CV_Nguyen_Hoang_Anh.pdf",
-  avatar: "/src/assets/me.jpg"
+  resume: cvPdf,
+  avatar: meJpg
 };
 
 export const about = {
