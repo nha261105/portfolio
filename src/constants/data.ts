@@ -52,7 +52,7 @@ export const personalInfo = {
   role: "Backend Engineer",
   tagline: "> backend engineer --mode=learning",
   greeting: "Hello —",
-  description: "I build backend systems that handle real-world complexity — from high-concurrency registration flows to AI-integrated pipelines. Clean Architecture is how I think. Java,Python are how I ship.",
+  description: "I build backend systems that handle real-world complexity — from high-concurrency registration flows to AI-integrated pipelines. Clean Architecture is how I think. Java and Python are how I ship.",
   email: "nha261105@gmail.com",
   phone: "098 5922 611",
   location: "Phu Thanh, Ho Chi Minh City",
