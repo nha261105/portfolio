@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 /** Returns the id of the section currently under the sticky topbar. */
-export const useActiveSection = (ids: string[], offset = 160) => {
+export const useActiveSection = (ids: string[]) => {
   const [active, setActive] = useState(ids[0]);
 
   useEffect(() => {
@@ -12,6 +12,8 @@ export const useActiveSection = (ids: string[], offset = 160) => {
         setActive(ids[ids.length - 1]);
         return;
       }
+      // A section becomes active once its top passes 40% of the viewport height.
+      const offset = window.innerHeight * 0.4;
       let current = ids[0];
       for (const id of ids) {
         const el = document.getElementById(id);
@@ -26,7 +28,7 @@ export const useActiveSection = (ids: string[], offset = 160) => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, [ids, offset]);
+  }, [ids]);
 
   return active;
 };

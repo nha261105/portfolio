@@ -3,6 +3,8 @@ import { MotionConfig } from 'framer-motion';
 import Sidebar from './components/layout/Sidebar';
 import Topbar from './components/layout/Topbar';
 import Footer from './components/layout/Footer';
+import ScrollProgress from './components/layout/ScrollProgress';
+import Background from './components/layout/Background';
 import About from './components/sections/About';
 import Resume from './components/sections/Resume';
 import Projects from './components/sections/Projects';
@@ -19,11 +21,8 @@ function App() {
     // reducedMotion="user" disables transform animations for visitors who ask for less motion
     <MotionConfig reducedMotion="user">
       <div className="relative min-h-screen bg-bg text-fg">
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-x-0 top-0 h-[520px]"
-          style={{ background: 'radial-gradient(700px circle at 75% -10%, var(--glow), transparent 70%)' }}
-        />
+        <ScrollProgress />
+        <Background />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-10
                         grid gap-5 lg:gap-6 lg:grid-cols-[300px_minmax(0,1fr)] items-start">
           <Sidebar />
