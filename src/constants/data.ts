@@ -21,12 +21,33 @@ export interface Project {
   github: string;
   demo: string | null;
   image: string | null;
+  /** Main language — used by the project filter */
+  stack: string;
 }
+
+export type TechGroup = 'Languages' | 'Backend' | 'Frontend' | 'Database' | 'DevOps & Tools';
 
 export interface TechItem {
   name: string;
   primary: boolean;
   icon: string;
+  group: TechGroup;
+}
+
+export interface Service {
+  icon: 'server' | 'layers' | 'cpu' | 'code';
+  title: string;
+  description: string;
+}
+
+export interface ExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  location?: string;
+  url?: string;
+  highlights: string[];
+  tech: string[];
 }
 
 export interface InterestTag {
@@ -48,7 +69,8 @@ import cvPdf from '../assets/CV_Nguyen_Hoang_Anh.pdf';
 import imgSmartDocAI from '../assets/img_SmartDocAI.png';
 
 export const personalInfo = {
-  name: "Nguyen Hoang Anh",
+  name: "Nguyễn Hoàng Anh",
+  nickname: "Ryan",
   role: "Backend Engineer",
   tagline: "> backend engineer --mode=learning",
   greeting: "Hello —",
@@ -93,7 +115,8 @@ export const projects: Project[] = [
     tech: ["Java 17", "Spring Boot 3", "PostgreSQL", "Redis", "RabbitMQ", "WebSocket", "JUnit 5", "Docker"],
     github: "https://github.com/nha261105",
     demo: null,
-    image: null
+    image: null,
+    stack: "Java"
   },
   {
     id: 2,
@@ -112,7 +135,8 @@ export const projects: Project[] = [
     tech: ["Python", "LangChain", "FAISS", "Ollama (Qwen2.5)", "Streamlit"],
     github: "https://github.com/nha261105",
     demo: null,
-    image: imgSmartDocAI
+    image: imgSmartDocAI,
+    stack: "Python"
   },
   {
     id: 3,
@@ -132,31 +156,34 @@ export const projects: Project[] = [
     tech: ["C# ASP.NET Core 8", "EF Core", "MSSQL", "JWT", "SignalR", "Azure Blob", "Swagger"],
     github: "https://github.com/nha261105",
     demo: null,
-    image: null
+    image: null,
+    stack: "C#"
   }
 ];
 
+export const techGroups: TechGroup[] = ['Languages', 'Backend', 'Frontend', 'Database', 'DevOps & Tools'];
+
 export const techStack: { items: TechItem[]; concepts: string[] } = {
   items: [
-    { name: "Java",         primary: true,  icon: "ci ci-java" },
-    { name: "Python",       primary: false, icon: "ci ci-python" },
-    { name: "C#",           primary: false, icon: "ci ci-csharp" },
-    { name: "Spring Boot",  primary: true,  icon: "ci ci-spring" },
-    { name: "ASP.NET Core", primary: false, icon: "ci ci-dotnetcore" },
-    { name: "FastAPI",      primary: false, icon: "ci ci-fastapi" },
-    { name: "React",        primary: true,  icon: "ci ci-react" },
-    { name: "PostgreSQL",   primary: true,  icon: "ci ci-postgresql" },
-    { name: "Supabase",     primary: false, icon: "ci ci-supabase" },
-    { name: "Docker",       primary: true,  icon: "ci ci-docker" },
-    { name: "Git",          primary: false, icon: "ci ci-git" },
-    { name: "Postman",      primary: true,  icon: "ci ci-postman" },
-    { name: "Swagger",      primary: false, icon: "ci ci-swagger" },
-    { name: "JUnit 5",      primary: false, icon: "ci ci-junit" },
-    { name: "Latex",        primary: false, icon: "ci ci-latex" },
-    { name: "Vscode",       primary: true,  icon: "ci ci-vscode" },
-    { name: "IntelliJ",     primary: false, icon: "ci ci-intellij" },
-    { name: "Ubuntu",       primary: false, icon: "ci ci-ubuntu" },
-    { name: "Markdown",     primary: false, icon: "ci ci-markdown" },
+    { name: "Java",         primary: true,  icon: "ci ci-java",        group: "Languages" },
+    { name: "Python",       primary: true,  icon: "ci ci-python",      group: "Languages" },
+    { name: "C#",           primary: false, icon: "ci ci-csharp",      group: "Languages" },
+    { name: "Spring Boot",  primary: true,  icon: "ci ci-spring",      group: "Backend" },
+    { name: "ASP.NET Core", primary: false, icon: "ci ci-dotnetcore",  group: "Backend" },
+    { name: "FastAPI",      primary: false, icon: "ci ci-fastapi",     group: "Backend" },
+    { name: "React",        primary: false, icon: "ci ci-react",       group: "Frontend" },
+    { name: "PostgreSQL",   primary: true,  icon: "ci ci-postgresql",  group: "Database" },
+    { name: "Supabase",     primary: false, icon: "ci ci-supabase",    group: "Database" },
+    { name: "Docker",       primary: true,  icon: "ci ci-docker",      group: "DevOps & Tools" },
+    { name: "Git",          primary: true,  icon: "ci ci-git",         group: "DevOps & Tools" },
+    { name: "Postman",      primary: false, icon: "ci ci-postman",     group: "DevOps & Tools" },
+    { name: "Swagger",      primary: false, icon: "ci ci-swagger",     group: "DevOps & Tools" },
+    { name: "JUnit 5",      primary: false, icon: "ci ci-junit",       group: "DevOps & Tools" },
+    { name: "IntelliJ",     primary: false, icon: "ci ci-intellij",    group: "DevOps & Tools" },
+    { name: "VS Code",      primary: false, icon: "ci ci-vscode",      group: "DevOps & Tools" },
+    { name: "Ubuntu",       primary: false, icon: "ci ci-ubuntu",      group: "DevOps & Tools" },
+    { name: "LaTeX",        primary: false, icon: "ci ci-latex",       group: "DevOps & Tools" },
+    { name: "Markdown",     primary: false, icon: "ci ci-markdown",    group: "DevOps & Tools" },
   ],
   concepts: [
     "RESTful APIs",
@@ -169,6 +196,32 @@ export const techStack: { items: TechItem[]; concepts: string[] } = {
   ]
 };
 
+export const services: Service[] = [
+  {
+    icon: "server",
+    title: "Backend APIs",
+    description: "RESTful services with Spring Boot and ASP.NET Core — auth, validation and clear API docs.",
+  },
+  {
+    icon: "layers",
+    title: "System Design",
+    description: "Concurrency control, caching and message queues for flows that must survive peak traffic.",
+  },
+  {
+    icon: "cpu",
+    title: "Applied AI",
+    description: "RAG pipelines and local LLM integration for teams that need to keep their data private.",
+  },
+  {
+    icon: "code",
+    title: "Clean Architecture",
+    description: "Layered, testable codebases that stay easy to extend as features grow.",
+  },
+];
+
+/** Work experience — the Experience timeline is hidden while this list is empty. */
+export const experience: ExperienceItem[] = [];
+
 export const education = {
   institution: "Sai Gon University",
   degree: "Bachelor of Software Engineering",
@@ -177,12 +230,10 @@ export const education = {
 };
 
 export const navLinks: NavLink[] = [
-  { id: "hero",      label: "About" },
-  { id: "projects",  label: "Projects" },
-  { id: "tech-stack",label: "Tech Stack" },
-  { id: "education", label: "Education" },
-  { id: "interests", label: "Interests" },
-  { id: "contact",   label: "Contact" }
+  { id: "about",    label: "About" },
+  { id: "resume",   label: "Resume" },
+  { id: "projects", label: "Projects" },
+  { id: "contact",  label: "Contact" }
 ];
 
 export const interests: InterestItem[] = [
@@ -190,7 +241,7 @@ export const interests: InterestItem[] = [
     id: 1,
     iconClass: "ci ci-spotify ci-xl",
     title: "Music",
-    description: "Nghe nhạc khi code. Mostly lo-fi, podcast, và dark academic.",
+    description: "My coding soundtrack — mostly lo-fi, podcasts and dark academia playlists.",
     tags: [
       { iconClass: "ci ci-spotify", label: "Spotify", url: "https://open.spotify.com/user/3177b6o5mok5sx4aubtuts2o3ng4?si=f3be02cc77284b3c" },
     ],
@@ -199,7 +250,7 @@ export const interests: InterestItem[] = [
     id: 2,
     iconClass: "ci ci-cpp ci-xl",
     title: "Competitive Programming",
-    description: "Solve problem hàng ngày, yêu thích thuật toán và tối ưu.",
+    description: "Solving problems daily — I enjoy algorithms and squeezing out every optimization.",
     tags: [
       { iconClass: "ci ci-codeforces", label: "Codeforces", url: "https://codeforces.com/profile/Kurano" },
       { iconClass: "ci ci-leetcode",   label: "LeetCode",   url: "https://leetcode.com/u/kurano26" },
@@ -209,7 +260,7 @@ export const interests: InterestItem[] = [
     id: 3,
     iconClass: "ci ci-gitbook ci-xl",
     title: "Reading",
-    description: "Tech blogs, papers, và đôi khi là light novel để giải trí.",
+    description: "Tech blogs and papers — plus the occasional light novel to unwind.",
     tags: [
       { iconClass: null, label: "Docln", url: "https://ln.hako.vn/danh-sach" },
     ],
@@ -218,7 +269,7 @@ export const interests: InterestItem[] = [
     id: 4,
     iconClass: null,
     title: "Badminton",
-    description: "Môn thể thao yêu thích — vừa rèn thể lực vừa xả stress sau những buổi debug dài.",
+    description: "My favourite sport — keeps me fit and clears my head after long debugging sessions.",
     tags: [],
   },
 ];
