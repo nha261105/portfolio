@@ -113,7 +113,7 @@ export const projects: Project[] = [
       "Auth: Spring Security + JWT"
     ],
     tech: ["Java 17", "Spring Boot 3", "PostgreSQL", "Redis", "RabbitMQ", "WebSocket", "JUnit 5", "Docker"],
-    github: "https://github.com/nha261105",
+    github: "https://github.com/nha261105/ExamSlot",
     demo: null,
     image: null,
     stack: "Java"
@@ -133,7 +133,7 @@ export const projects: Project[] = [
       "Fully air-gapped — no internet dependency"
     ],
     tech: ["Python", "LangChain", "FAISS", "Ollama (Qwen2.5)", "Streamlit"],
-    github: "https://github.com/nha261105",
+    github: "https://github.com/nha261105/generative-AI",
     demo: null,
     image: imgSmartDocAI,
     stack: "Python"
@@ -154,7 +154,7 @@ export const projects: Project[] = [
       "Deployed: Azure App Service + Azure SQL Database"
     ],
     tech: ["C# ASP.NET Core 8", "EF Core", "MSSQL", "JWT", "SignalR", "Azure Blob", "Swagger"],
-    github: "https://github.com/nha261105",
+    github: "https://github.com/nha261105/CSharp-backend",
     demo: null,
     image: null,
     stack: "C#"
