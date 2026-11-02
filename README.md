@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# Nguyễn Hoàng Anh (Ryan) — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio of **Nguyễn Hoàng Anh (Ryan)**, Software Engineer.
 
-Currently, two official plugins are available:
+🔗 **Live:** https://hanhdev.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Preview](public/og-image.png)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Sidebar + scrolling layout:** sticky profile card on the left; About, Resume, Projects and Contact sections scroll on the right
+- **Sticky topbar** with scroll-spy highlighting; every section has a shareable link (`/#projects`)
+- **Light / dark theme:** the toggle reveals the new theme as a growing circle; follows the OS setting on first visit and remembers the choice
+- **Projects:** filter by language, open a case-study modal (Problem → Solution → Highlights)
+- **Motion:** staggered reveals, cursor-following spotlight on cards, scroll progress bar. Everything respects `prefers-reduced-motion`
+- **Responsive:** on mobile the profile card collapses and the layout stacks
+- **SEO / sharing:** Open Graph + Twitter card image, canonical URL, `robots.txt`, `sitemap.xml`
 
-## Expanding the ESLint configuration
+## Tech stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+React 19 · TypeScript · Vite · Tailwind CSS 4 · Framer Motion · react-icons · Google Analytics · Vercel
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev       # http://localhost:5173
+npm run lint
+npm run build     # type-check + production build into dist/
+npm run preview   # serve the production build locally
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Pushing to `main` deploys to Vercel automatically.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Editing content
 
-export default defineConfig([
-  globalIgnores(['dist']),
+Almost all content lives in [`src/constants/data.ts`](src/constants/data.ts):
+
+| What | Where in `data.ts` |
+|---|---|
+| Name, role, email, location, social links, CV | `personalInfo` |
+| About text | `personalInfo.description`, `about.bio` |
+| "What I'm doing" cards | `services` |
+| Work experience timeline (hidden while empty) | `experience` |
+| Education | `education` |
+| Projects (+ filter via `stack`) | `projects` |
+| Tech stack (grouped, `primary` = highlighted) | `techStack`, `techGroups` |
+| Interests | `interests` |
+
+Images and the CV PDF are in `src/assets/`. Replace a file with one of the same name, or update its import at the top of `data.ts`.
+
+### Adding an experience entry
+
+```ts
+export const experience: ExperienceItem[] = [
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
+    company: 'Company name',
+    role: 'Software Engineer Intern',
+    period: 'Sep 2026 – Present',
+    location: 'Ho Chi Minh City',
+    highlights: ['What you built or improved', 'Another achievement'],
+    tech: ['Java', 'Spring Boot'],
   },
-])
+];
 ```
+
+### Icons
+
+Brand and technology icons are self-hosted SVGs in `public/icons/`, from [coloured-icons](https://github.com/dheereshag/coloured-icons) (MIT). They are used as `<i className="ci ci-java ci-xl" />`. To add one, copy its logo into `public/icons/` and add a rule to [`src/styles/icons.css`](src/styles/icons.css).
+
+## Project structure
+
+See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md).
