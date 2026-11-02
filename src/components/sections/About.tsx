@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { FiActivity, FiArrowUpRight, FiCode, FiCpu, FiLayers, FiServer } from 'react-icons/fi';
 import clsx from 'clsx';
-import { about, interests, personalInfo, services } from '../../constants/data';
+import { about, interests, services } from '../../constants/data';
+import { useLang } from '../../i18n/context';
 import type { Service } from '../../constants/data';
 import Section from '../ui/Section';
 import { fadeUp, inView, staggerContainer } from '../../lib/motion';
@@ -26,8 +27,11 @@ const SubTitle = ({ children }: { children: ReactNode }) => (
   </motion.h3>
 );
 
-const About = () => (
-  <Section id="about" title="About Me">
+const About = () => {
+  const { t, ui } = useLang();
+
+  return (
+  <Section id="about" title={ui.section.about}>
     <motion.div
       variants={staggerContainer(0.12)}
       initial="hidden"
@@ -35,16 +39,16 @@ const About = () => (
       viewport={inView}
       className="space-y-4 text-muted leading-relaxed max-w-3xl"
     >
-      <motion.p variants={fadeUp}>{personalInfo.description}</motion.p>
-      <motion.p variants={fadeUp}>{about.bio}</motion.p>
+      <motion.p variants={fadeUp}>{t(about.intro)}</motion.p>
+      <motion.p variants={fadeUp}>{t(about.bio)}</motion.p>
     </motion.div>
 
     <motion.div variants={staggerContainer(0.08)} initial="hidden" whileInView="show" viewport={inView}>
-      <SubTitle>What I&apos;m doing</SubTitle>
+      <SubTitle>{ui.about.whatIDo}</SubTitle>
       <div className="grid sm:grid-cols-2 gap-4">
         {services.map((s) => (
           <motion.div
-            key={s.title}
+            key={s.icon}
             variants={fadeUp}
             whileHover={hoverLift}
             onMouseMove={trackSpotlight}
@@ -54,8 +58,8 @@ const About = () => (
               {serviceIcons[s.icon]}
             </span>
             <div>
-              <h4 className="font-semibold text-fg mb-1">{s.title}</h4>
-              <p className="text-sm text-muted leading-relaxed">{s.description}</p>
+              <h4 className="font-semibold text-fg mb-1">{t(s.title)}</h4>
+              <p className="text-sm text-muted leading-relaxed">{t(s.description)}</p>
             </div>
           </motion.div>
         ))}
@@ -63,7 +67,7 @@ const About = () => (
     </motion.div>
 
     <motion.div variants={staggerContainer(0.08)} initial="hidden" whileInView="show" viewport={inView}>
-      <SubTitle>Beyond code</SubTitle>
+      <SubTitle>{ui.about.beyondCode}</SubTitle>
       <div className="grid sm:grid-cols-2 gap-4">
         {interests.map((item) => (
           <motion.div
@@ -80,9 +84,9 @@ const About = () => (
               >
                 {item.iconClass ? <i className={`${item.iconClass} text-lg`} aria-hidden /> : <FiActivity size={18} />}
               </span>
-              <h4 className="font-semibold text-fg">{item.title}</h4>
+              <h4 className="font-semibold text-fg">{t(item.title)}</h4>
             </div>
-            <p className="text-sm text-muted leading-relaxed">{item.description}</p>
+            <p className="text-sm text-muted leading-relaxed">{t(item.description)}</p>
             {item.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-auto">
                 {item.tags.map((tag) => (
@@ -109,6 +113,7 @@ const About = () => (
       </div>
     </motion.div>
   </Section>
-);
+  );
+};
 
 export default About;

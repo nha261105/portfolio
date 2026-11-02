@@ -1,14 +1,17 @@
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FiChevronDown, FiDownload, FiMail, FiMapPin } from 'react-icons/fi';
 import clsx from 'clsx';
 import { personalInfo } from '../../constants/data';
 import { cardClass } from '../ui/card';
 import { easeOut, fadeUp, staggerContainer } from '../../lib/motion';
+import { useLang } from '../../i18n/context';
+import type { Text } from '../../i18n/types';
 
-const contactItems = [
-  { icon: <FiMail size={17} />, label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-  { icon: <FiMapPin size={17} />, label: 'Location', value: personalInfo.location },
+const contactItems: { key: 'email' | 'location'; icon: ReactNode; value: Text; href?: string }[] = [
+  { key: 'email', icon: <FiMail size={17} />, value: personalInfo.email, href: `mailto:${personalInfo.email}` },
+  { key: 'location', icon: <FiMapPin size={17} />, value: personalInfo.location },
 ];
 
 const socials = [
@@ -26,12 +29,14 @@ const socials = [
   { label: 'Discord', href: personalInfo.discord, icon: <i className="ci ci-discord ci-lg" aria-hidden /> },
 ];
 
-const Details = () => (
+const Details = () => {
+  const { t, ui } = useLang();
+  return (
   <motion.div variants={staggerContainer(0.06, 0.25)} initial="hidden" animate="show">
     <motion.div variants={fadeUp} className="my-6 h-px bg-line" />
     <ul className="space-y-4">
       {contactItems.map((item) => (
-        <motion.li key={item.label} variants={fadeUp} className="group flex items-center gap-3.5 min-w-0">
+        <motion.li key={item.key} variants={fadeUp} className="group flex items-center gap-3.5 min-w-0">
           <span
             className="w-10 h-10 rounded-xl border border-line bg-surface-2 text-accent flex items-center justify-center shrink-0
                        transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105"
@@ -39,7 +44,7 @@ const Details = () => (
             {item.icon}
           </span>
           <div className="min-w-0 text-left">
-            <p className="text-[11px] uppercase tracking-wider text-subtle">{item.label}</p>
+            <p className="text-[11px] uppercase tracking-wider text-subtle">{ui.sidebar[item.key]}</p>
             {item.href ? (
               <a
                 href={item.href}
@@ -47,10 +52,10 @@ const Details = () => (
                 rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 className="block text-sm text-fg truncate hover:text-accent transition-colors"
               >
-                {item.value}
+                {t(item.value)}
               </a>
             ) : (
-              <p className="text-sm text-fg leading-snug">{item.value}</p>
+              <p className="text-sm text-fg leading-snug">{t(item.value)}</p>
             )}
           </div>
         </motion.li>
@@ -84,14 +89,16 @@ const Details = () => (
       className="group mt-6 flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-accent text-accent-fg
                  font-medium shadow-lg shadow-accent/25 hover:bg-accent-hover hover:shadow-accent/40 transition-[background-color,box-shadow]"
     >
-      <FiDownload size={17} className="transition-transform duration-300 group-hover:translate-y-0.5" /> Download CV
+      <FiDownload size={17} className="transition-transform duration-300 group-hover:translate-y-0.5" /> {ui.sidebar.downloadCv}
     </motion.a>
   </motion.div>
-);
+  );
+};
 
 /** Profile card: sticky on desktop, collapsible on mobile. */
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
+  const { ui } = useLang();
 
   return (
     <motion.aside
@@ -145,7 +152,7 @@ const Sidebar = () => {
         whileTap={{ scale: 0.9 }}
         aria-expanded={open}
         aria-controls="sidebar-details"
-        aria-label={open ? 'Hide contacts' : 'Show contacts'}
+        aria-label={open ? ui.sidebar.hideContacts : ui.sidebar.showContacts}
         className="lg:hidden absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-xl
                    border border-line bg-surface-2 text-accent"
       >

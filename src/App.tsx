@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { MotionConfig } from 'framer-motion';
+import LanguageProvider from './i18n/LanguageProvider';
 import Sidebar from './components/layout/Sidebar';
 import Topbar from './components/layout/Topbar';
 import Footer from './components/layout/Footer';
@@ -18,27 +19,31 @@ function App() {
   }, []);
 
   return (
-    // reducedMotion="user" disables transform animations for visitors who ask for less motion
-    <MotionConfig reducedMotion="user">
-      <div className="relative min-h-screen bg-bg text-fg">
-        <ScrollProgress />
-        <Background />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-10
-                        grid gap-5 lg:gap-6 lg:grid-cols-[320px_minmax(0,1fr)] items-start">
-          <Sidebar />
-          <div className="min-w-0 space-y-5 lg:space-y-6">
-            <Topbar />
-            <main className="space-y-5 lg:space-y-6">
-              <About />
-              <Resume />
-              <Projects />
-              <Contact />
-            </main>
-            <Footer />
+    <LanguageProvider>
+      {/* reducedMotion="user" disables transform animations for visitors who ask for less motion */}
+      <MotionConfig reducedMotion="user">
+        <div className="relative min-h-screen bg-bg text-fg">
+          <ScrollProgress />
+          <Background />
+          <div
+            className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-10
+                       grid grid-cols-[minmax(0,1fr)] gap-5 lg:gap-6 lg:grid-cols-[320px_minmax(0,1fr)] items-start"
+          >
+            <Sidebar />
+            <div className="min-w-0 space-y-5 lg:space-y-6">
+              <Topbar />
+              <main className="space-y-5 lg:space-y-6">
+                <About />
+                <Resume />
+                <Projects />
+                <Contact />
+              </main>
+              <Footer />
+            </div>
           </div>
         </div>
-      </div>
-    </MotionConfig>
+      </MotionConfig>
+    </LanguageProvider>
   );
 }
 
