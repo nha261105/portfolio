@@ -13,13 +13,17 @@ portfolio/
     ├── App.tsx                   # Page layout: sidebar + (topbar, sections, footer)
     ├── index.css                 # Tailwind, design tokens (light/dark), motion helpers
     ├── styles/icons.css          # .ci icon classes
-    ├── constants/data.ts         # ALL site content (edit here)
+    ├── constants/
+    │   ├── data.ts               # ALL site content, in English + Vietnamese (edit here)
+    │   └── diagrams.ts           # Architecture diagram layouts per project
+    ├── i18n/                     # Language context/provider, UI strings (ui.ts), types
     ├── assets/                   # Avatar, project screenshots, CV PDF
     ├── components/
     │   ├── layout/
     │   │   ├── Sidebar.tsx       # Profile card (sticky on desktop, collapsible on mobile)
     │   │   ├── Topbar.tsx        # Sticky section nav with scroll-spy
     │   │   ├── ThemeToggle.tsx   # Sun / moon button
+    │   │   ├── LanguageToggle.tsx # EN / VI switch
     │   │   ├── ScrollProgress.tsx
     │   │   ├── Background.tsx    # Drifting glow + dot grid
     │   │   └── Footer.tsx
@@ -30,6 +34,7 @@ portfolio/
     │   │   └── Contact.tsx       # Copy-email CTA + social channels
     │   └── ui/
     │       ├── Section.tsx       # Section panel with animated heading
+    │       ├── ArchitectureDiagram.tsx # SVG diagram renderer (animated data flow)
     │       └── card.ts           # Shared card / chip class names
     ├── hooks/
     │   ├── useTheme.ts           # Theme state + circular reveal (View Transitions API)

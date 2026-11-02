@@ -5,15 +5,17 @@ import { personalInfo } from '../../constants/data';
 import Section from '../ui/Section';
 import { fadeUp, inView, staggerContainer } from '../../lib/motion';
 import { trackSpotlight } from '../../lib/spotlight';
+import { useLang } from '../../i18n/context';
 
 const channels = [
   { label: 'LinkedIn', handle: 'in/nha261105', href: personalInfo.linkedin, icon: 'ci ci-linkedin' },
   { label: 'GitHub', handle: 'nha261105', href: personalInfo.github, icon: null },
-  { label: 'Discord', handle: 'Message me', href: personalInfo.discord, icon: 'ci ci-discord' },
+  { label: 'Discord', handle: null, href: personalInfo.discord, icon: 'ci ci-discord' },
 ];
 
 const Contact = () => {
   const [copied, setCopied] = useState(false);
+  const { ui } = useLang();
 
   const copyEmail = async () => {
     try {
@@ -26,7 +28,7 @@ const Contact = () => {
   };
 
   return (
-    <Section id="contact" title="Contact">
+    <Section id="contact" title={ui.section.contact}>
       <motion.div
         variants={fadeUp}
         initial="hidden"
@@ -40,9 +42,9 @@ const Contact = () => {
           style={{ background: 'radial-gradient(500px circle at 50% 0%, var(--glow), transparent 70%)' }}
         />
         <div className="relative">
-          <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-fg">Let&apos;s work together</h3>
+          <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-fg">{ui.contact.title}</h3>
           <p className="mt-3 text-muted max-w-xl mx-auto">
-            Have a role, a project or just a question about backend systems? My inbox is always open.
+            {ui.contact.subtitle}
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
@@ -53,7 +55,7 @@ const Contact = () => {
               whileTap={{ scale: 0.97 }}
               className="group inline-flex items-center justify-center gap-3 px-5 py-3.5 rounded-xl border border-line bg-surface
                          hover:border-accent/50 transition-colors min-w-0"
-              aria-label={`Copy email address ${personalInfo.email}`}
+              aria-label={`${ui.contact.copyEmail} ${personalInfo.email}`}
             >
               <FiMail className="text-accent shrink-0" />
               <span className="font-mono text-sm sm:text-base text-fg truncate">{personalInfo.email}</span>
@@ -79,7 +81,7 @@ const Contact = () => {
               className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-accent text-accent-fg font-medium
                          shadow-lg shadow-accent/25 hover:bg-accent-hover transition-colors"
             >
-              Say hello
+              {ui.contact.sayHello}
             </motion.a>
           </div>
           <p role="status" className="h-5 mt-3 text-sm text-accent">
@@ -91,7 +93,7 @@ const Contact = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                 >
-                  Email copied to clipboard!
+                  {ui.contact.copied}
                 </motion.span>
               )}
             </AnimatePresence>
@@ -134,7 +136,7 @@ const Contact = () => {
             </span>
             <span className="min-w-0">
               <span className="block font-medium text-fg">{c.label}</span>
-              <span className="block text-sm text-muted truncate">{c.handle}</span>
+              <span className="block text-sm text-muted truncate">{c.handle ?? ui.contact.messageMe}</span>
             </span>
           </motion.a>
         ))}

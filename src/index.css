@@ -147,3 +147,14 @@
     animation: none;
   }
 }
+
+/* Architecture diagrams: dashes travel along each edge to show data flow */
+@keyframes diagram-flow {
+  to { stroke-dashoffset: -36; }
+}
+.diagram-flow {
+  animation: diagram-flow 1.6s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .diagram-flow { animation: none; }
+}

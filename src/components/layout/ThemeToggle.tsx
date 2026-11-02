@@ -1,17 +1,19 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMoon, FiSun } from 'react-icons/fi';
 import { useTheme } from '../../hooks/useTheme';
+import { useLang } from '../../i18n/context';
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
+  const { ui } = useLang();
   const isDark = theme === 'dark';
 
   return (
     <button
       type="button"
       onClick={toggleTheme}
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      title={isDark ? 'Light mode' : 'Dark mode'}
+      aria-label={isDark ? ui.theme.toLight : ui.theme.toDark}
+      title={isDark ? ui.theme.light : ui.theme.dark}
       className="w-9 h-9 flex items-center justify-center rounded-xl border border-line
                  text-muted hover:text-fg hover:border-line-strong transition-colors overflow-hidden shrink-0"
     >

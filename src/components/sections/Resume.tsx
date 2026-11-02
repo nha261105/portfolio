@@ -6,6 +6,7 @@ import Section, { SubHeading } from '../ui/Section';
 import { chipClass } from '../ui/card';
 import clsx from 'clsx';
 import { easeOut, fadeUp, inView, popIn, staggerContainer } from '../../lib/motion';
+import { useLang } from '../../i18n/context';
 
 const TimelineItem = ({ title, subtitle, period, children }: {
   title: string;
@@ -44,23 +45,26 @@ const Timeline = ({ children }: { children: ReactNode }) => (
   </motion.ol>
 );
 
-const Resume = () => (
-  <Section id="resume" title="Resume">
+const Resume = () => {
+  const { t, ui } = useLang();
+
+  return (
+  <Section id="resume" title={ui.section.resume}>
     {experience.length > 0 && (
       <div className="mb-10">
-        <SubHeading icon={<FiBriefcase size={18} />}>Experience</SubHeading>
+        <SubHeading icon={<FiBriefcase size={18} />}>{ui.resume.experience}</SubHeading>
         <Timeline>
           {experience.map((job) => (
             <TimelineItem
-              key={`${job.company}-${job.period}`}
-              title={job.role}
-              subtitle={job.location ? `${job.company} · ${job.location}` : job.company}
-              period={job.period}
+              key={`${job.company}-${job.period.en}`}
+              title={t(job.role)}
+              subtitle={job.location ? `${job.company} · ${t(job.location)}` : job.company}
+              period={t(job.period)}
             >
               <ul className="mt-3 space-y-1.5">
                 {job.highlights.map((h) => (
-                  <li key={h} className="flex gap-2 text-sm text-muted leading-relaxed">
-                    <span className="text-accent" aria-hidden>→</span>{h}
+                  <li key={h.en} className="flex gap-2 text-sm text-muted leading-relaxed">
+                    <span className="text-accent" aria-hidden>→</span>{t(h)}
                   </li>
                 ))}
               </ul>
@@ -76,23 +80,23 @@ const Resume = () => (
     )}
 
     <div className="mb-10">
-      <SubHeading icon={<FiBookOpen size={18} />}>Education</SubHeading>
+      <SubHeading icon={<FiBookOpen size={18} />}>{ui.resume.education}</SubHeading>
       <Timeline>
-        <TimelineItem title={education.institution} subtitle={education.degree} period={education.period}>
-          <p className="text-sm text-subtle mt-1">{education.location}</p>
+        <TimelineItem title={t(education.institution)} subtitle={t(education.degree)} period={t(education.period)}>
+          <p className="text-sm text-subtle mt-1">{t(education.location)}</p>
         </TimelineItem>
       </Timeline>
     </div>
 
     <div>
-      <SubHeading icon={<FiCode size={18} />}>Tech Stack</SubHeading>
+      <SubHeading icon={<FiCode size={18} />}>{ui.resume.techStack}</SubHeading>
       <div className="space-y-6">
         {techGroups.map((group) => {
           const items = techStack.items.filter((t) => t.group === group);
           if (items.length === 0) return null;
           return (
             <div key={group}>
-              <p className="font-mono text-xs uppercase tracking-widest text-subtle mb-3">{group}</p>
+              <p className="font-mono text-xs uppercase tracking-widest text-subtle mb-3">{ui.techGroup[group]}</p>
               <motion.div
                 variants={staggerContainer(0.04)}
                 initial="hidden"
@@ -122,7 +126,7 @@ const Resume = () => (
         })}
 
         <div>
-          <p className="font-mono text-xs uppercase tracking-widest text-subtle mb-3">Concepts</p>
+          <p className="font-mono text-xs uppercase tracking-widest text-subtle mb-3">{ui.resume.concepts}</p>
           <motion.div
             variants={staggerContainer(0.04)}
             initial="hidden"
@@ -138,6 +142,7 @@ const Resume = () => (
       </div>
     </div>
   </Section>
-);
+  );
+};
 
 export default Resume;
