@@ -72,9 +72,9 @@ export const personalInfo = {
   name: "Nguyễn Hoàng Anh",
   nickname: "Ryan",
   role: "Software Engineer",
-  tagline: "> backend engineer --mode=learning",
+  tagline: "> software engineer --mode=learning",
   greeting: "Hello —",
-  description: "I build backend systems that handle real-world complexity — from high-concurrency registration flows to AI-integrated pipelines. Clean Architecture is how I think. Java and Python are how I ship.",
+  description: "I build software systems that handle real-world complexity — from high-concurrency registration flows to AI-integrated pipelines. Clean Architecture is how I think. Java and Python are how I ship.",
   email: "nha261105@gmail.com",
   phone: "098 5922 611",
   location: "Phu Thanh, Ho Chi Minh City",
@@ -86,7 +86,7 @@ export const personalInfo = {
 };
 
 export const about = {
-  bio: "Backend-focused Software Engineer Intern with hands-on experience building REST APIs, AI-integrated pipelines, and cloud-deployed applications. I approach problems through the lens of Clean Architecture, system design, and concurrency control. My toolkit spans Java, Python, and C#, with a focus on applied AI (RAG, LLM integration) and production-grade backend systems.",
+  bio: "Software Engineer Intern with hands-on experience building REST APIs, AI-integrated pipelines, and cloud-deployed applications. I approach problems through the lens of Clean Architecture, system design, and concurrency control. My toolkit spans Java, Python, and C#, with a focus on applied AI (RAG, LLM integration) and production-grade backend systems.",
   university: "Sai Gon University",
   degree: "Software Engineering",
   period: "2023–2028",
