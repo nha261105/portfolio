@@ -71,7 +71,7 @@ import imgSmartDocAI from '../assets/img_SmartDocAI.png';
 export const personalInfo = {
   name: "Nguyễn Hoàng Anh",
   nickname: "Ryan",
-  role: "Backend Engineer",
+  role: "Software Engineer",
   tagline: "> backend engineer --mode=learning",
   greeting: "Hello —",
   description: "I build backend systems that handle real-world complexity — from high-concurrency registration flows to AI-integrated pipelines. Clean Architecture is how I think. Java and Python are how I ship.",
