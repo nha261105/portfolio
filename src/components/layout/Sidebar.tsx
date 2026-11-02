@@ -1,17 +1,13 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { FiChevronDown, FiDownload, FiGithub, FiMail, FiMapPin } from 'react-icons/fi';
+import { FiChevronDown, FiDownload, FiMail, FiMapPin } from 'react-icons/fi';
 import clsx from 'clsx';
 import { personalInfo } from '../../constants/data';
 import { cardClass } from '../ui/card';
-import RotatingText from '../ui/RotatingText';
 import { easeOut, fadeUp, staggerContainer } from '../../lib/motion';
-
-const roles = [personalInfo.role, 'Java · Spring Boot', 'System Design', 'Applied AI · RAG'];
 
 const contactItems = [
   { icon: <FiMail size={17} />, label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-  { icon: <FiGithub size={17} />, label: 'GitHub', value: personalInfo.github.replace('https://', ''), href: personalInfo.github },
   { icon: <FiMapPin size={17} />, label: 'Location', value: personalInfo.location },
 ];
 
@@ -127,20 +123,17 @@ const Sidebar = () => {
           variants={staggerContainer(0.08, 0.2)}
           initial="hidden"
           animate="show"
-          className="min-w-0 flex-1 lg:flex-none pr-8 lg:pr-0"
+          className="min-w-0 flex-1 lg:flex-none pr-11 lg:pr-0"
         >
-          <motion.h1 variants={fadeUp} className="text-xl sm:text-2xl font-bold tracking-tight text-fg">
-            {personalInfo.name}
+          <motion.h1 variants={fadeUp} className="text-lg sm:text-xl font-bold tracking-tight text-fg">
+            <span className="whitespace-nowrap">{personalInfo.name}</span>{' '}
+            <span className="font-medium text-muted whitespace-nowrap">({personalInfo.nickname})</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-sm text-muted mt-0.5">
-            aka <span className="font-mono font-medium text-fg">{personalInfo.nickname}</span>
-          </motion.p>
           <motion.span
             variants={fadeUp}
-            layout
-            className="inline-flex mt-2.5 px-3 py-1 rounded-lg bg-accent-soft text-accent text-xs font-medium"
+            className="inline-flex mt-3 px-3 py-1 rounded-lg bg-accent-soft text-accent text-xs font-medium"
           >
-            <RotatingText words={roles} />
+            {personalInfo.role}
           </motion.span>
         </motion.div>
       </div>

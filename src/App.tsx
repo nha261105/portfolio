@@ -24,7 +24,7 @@ function App() {
         <ScrollProgress />
         <Background />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-10
-                        grid gap-5 lg:gap-6 lg:grid-cols-[300px_minmax(0,1fr)] items-start">
+                        grid gap-5 lg:gap-6 lg:grid-cols-[320px_minmax(0,1fr)] items-start">
           <Sidebar />
           <div className="min-w-0 space-y-5 lg:space-y-6">
             <Topbar />
