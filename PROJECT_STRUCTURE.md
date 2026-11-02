@@ -1,121 +1,49 @@
-# Portfolio Project Structure
-
-## 📁 Folder Structure
+# Project Structure
 
 ```
 portfolio/
+├── index.html                    # Meta / Open Graph tags, theme bootstrap (no flash), Google Analytics
 ├── public/
-│   ├── favicon.svg
-│   └── icons.svg
-├── src/
-│   ├── assets/
-│   │   └── CV_Nguyen_Hoang_Anh.pdf
-│   ├── components/
-│   │   ├── Navbar.jsx          # Sticky navigation with active section tracking
-│   │   ├── Hero.jsx            # Hero section with staggered animations
-│   │   ├── About.jsx           # About section with bio and stats
-│   │   ├── Projects.jsx        # Engineering case study cards
-│   │   ├── TechStack.jsx       # Tech stack grid with icons
-│   │   ├── Education.jsx       # Education timeline
-│   │   ├── Contact.jsx         # Contact form and social links
-│   │   └── Footer.jsx          # Simple footer
-│   ├── constants/
-│   │   └── data.js             # All content data (easy to update)
-│   ├── App.tsx                 # Main app component
-│   ├── main.tsx                # React entry point
-│   └── index.css               # Global styles + Tailwind
-├── index.html                  # HTML template with fonts
-└── package.json                # Dependencies
-
+│   ├── favicon.svg, apple-touch-icon.png
+│   ├── og-image.png              # 1200×630 link-preview image
+│   ├── robots.txt, sitemap.xml
+│   └── icons/                    # Self-hosted brand/tech icons (coloured-icons, MIT)
+└── src/
+    ├── main.tsx                  # Entry point, global CSS imports
+    ├── App.tsx                   # Page layout: sidebar + (topbar, sections, footer)
+    ├── index.css                 # Tailwind, design tokens (light/dark), motion helpers
+    ├── styles/icons.css          # .ci icon classes
+    ├── constants/data.ts         # ALL site content (edit here)
+    ├── assets/                   # Avatar, project screenshots, CV PDF
+    ├── components/
+    │   ├── layout/
+    │   │   ├── Sidebar.tsx       # Profile card (sticky on desktop, collapsible on mobile)
+    │   │   ├── Topbar.tsx        # Sticky section nav with scroll-spy
+    │   │   ├── ThemeToggle.tsx   # Sun / moon button
+    │   │   ├── ScrollProgress.tsx
+    │   │   ├── Background.tsx    # Drifting glow + dot grid
+    │   │   └── Footer.tsx
+    │   ├── sections/
+    │   │   ├── About.tsx         # Bio, "What I'm doing", interests
+    │   │   ├── Resume.tsx        # Experience & education timelines, grouped tech stack
+    │   │   ├── Projects.tsx      # Filterable cards + case-study modal
+    │   │   └── Contact.tsx       # Copy-email CTA + social channels
+    │   └── ui/
+    │       ├── Section.tsx       # Section panel with animated heading
+    │       └── card.ts           # Shared card / chip class names
+    ├── hooks/
+    │   ├── useTheme.ts           # Theme state + circular reveal (View Transitions API)
+    │   └── useActiveSection.ts   # Scroll-spy
+    └── lib/
+        ├── motion.ts             # Shared Framer Motion variants
+        ├── scroll.ts             # Smooth scroll + URL hash
+        └── spotlight.ts          # Cursor position for the card spotlight
 ```
 
-## 🎨 Tech Stack
+## Design tokens
 
-- **React 19** + **Vite** - Core framework and build tool
-- **Tailwind CSS 4** - Utility-first styling
-- **Framer Motion** - Smooth animations
-- **react-intersection-observer** - Scroll-triggered animations
-- **react-icons** - Icon library
-- **clsx** - Conditional className utility
+Colours are CSS variables in `src/index.css` with one set per theme (`:root[data-theme="dark"]` / `[data-theme="light"]`). They are exposed to Tailwind as `bg-bg`, `bg-surface`, `bg-surface-2`, `border-line`, `text-fg`, `text-muted`, `text-subtle`, `text-accent`, `bg-accent-soft`, and so on. To change the accent colour, edit `--accent` (and `--accent-hover`, `--accent-soft`, `--glow`) in both themes.
 
-## 🚀 Getting Started
+## Fonts
 
-```bash
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-```
-
-## 📝 Updating Content
-
-All content is centralized in `src/constants/data.js`. Update this file to change:
-- Personal information
-- Projects
-- Tech stack
-- Education details
-- Contact information
-
-## 🎯 Key Features
-
-- ✅ Dark theme (#0D1117 background)
-- ✅ Gradient accent colors (#3B82F6 → #6366F1)
-- ✅ Smooth scroll navigation
-- ✅ Scroll-triggered animations
-- ✅ Fully responsive (mobile-first)
-- ✅ Engineering-focused project presentation
-- ✅ No screenshots - content over visuals
-- ✅ Custom scrollbar
-- ✅ Sticky navbar with active section highlighting
-- ✅ Terminal-style elements
-- ✅ Hover effects on interactive elements
-
-## 🎬 Animation Details
-
-- Hero section: Staggered text reveal
-- Sections: Fade + slide up on scroll into viewport
-- Project cards: Hover glow + scale
-- Tech items: Scale + lift on hover
-- Buttons: Background shift + scale on hover
-
-## 📱 Responsive Breakpoints
-
-- Mobile: < 768px (stack layout)
-- Tablet: 768px - 1024px
-- Desktop: > 1024px
-
-## 🔧 Customization
-
-### Colors
-Update gradient colors in components or add to Tailwind config:
-- Primary: `#3B82F6`
-- Secondary: `#6366F1`
-- Background: `#0D1117`
-- Alt Background: `#0F0F0F`
-
-### Fonts
-- Body: Inter (Google Fonts)
-- Code: JetBrains Mono (Google Fonts)
-
-### Icons
-Tech stack icons use devicons CDN. Fallback to plain icons if original not found.
-
-## 📦 Production Deployment
-
-Ready to deploy to:
-- Vercel (recommended)
-- Netlify
-- GitHub Pages
-- Any static hosting
-
-```bash
-npm run build
-# Deploy the 'dist' folder
-```
+Inter for body text, JetBrains Mono for labels and code (Google Fonts, loaded in `index.html`).

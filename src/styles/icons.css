@@ -1,0 +1,43 @@
+/*
+  Brand / technology icons, self-hosted from coloured-icons (MIT, (c) Dheeresh Agarwal)
+  https://github.com/dheereshag/coloured-icons @ 48b5b9b0d3a7a2920784195f1fdaebc2293679a7
+  Only the icons used on this site are included. Usage: <i class="ci ci-java ci-xl" />
+  To add one: copy its logo into public/icons/ and add a rule below.
+*/
+.ci-spotify{content:url("/icons/spotify.svg")}
+.ci-discord{content:url("/icons/discord.svg")}
+.ci-linkedin{content:url("/icons/linkedin.svg")}
+.ci-codeforces{content:url("/icons/codeforces.svg")}
+.ci-cpp{content:url("/icons/cpp.svg")}
+.ci-csharp{content:url("/icons/csharp.svg")}
+.ci-docker{content:url("/icons/docker.webp")}
+.ci-dotnetcore{content:url("/icons/dotnetcore.svg")}
+.ci-fastapi{content:url("/icons/fastapi.svg")}
+.ci-git{content:url("/icons/git.svg")}
+.ci-gitbook{content:url("/icons/gitbook.svg")}
+.ci-github-light{content:url("/icons/github-light.svg")}
+.ci-github{content:url("/icons/github.svg")}
+.ci-intellij{content:url("/icons/intellij.svg")}
+.ci-java{content:url("/icons/java.svg")}
+.ci-junit{content:url("/icons/junit.svg")}
+.ci-latex{content:url("/icons/latex.svg")}
+.ci-leetcode{content:url("/icons/leetcode.png")}
+.ci-markdown{content:url("/icons/markdown.svg")}
+.ci-postgresql{content:url("/icons/postgresql.svg")}
+.ci-postman{content:url("/icons/postman.svg")}
+.ci-python{content:url("/icons/python.svg")}
+.ci-react{content:url("/icons/react.svg")}
+.ci-spring{content:url("/icons/spring.svg")}
+.ci-supabase{content:url("/icons/supabase.svg")}
+.ci-swagger{content:url("/icons/swagger.svg")}
+.ci-ubuntu{content:url("/icons/ubuntu.svg")}
+.ci-vscode{content:url("/icons/vscode.svg")}
+.ci{width:1rem;height:1rem;object-fit:contain}
+.ci-lg{width:1.25rem;height:1.25rem}
+.ci-xl{width:1.5rem;height:1.5rem}
+
+/* Monochrome dark logos have no light variant: invert them on the dark theme so they stay visible */
+[data-theme="dark"] .ci-latex,
+[data-theme="dark"] .ci-markdown {
+  filter: invert(1);
+}
