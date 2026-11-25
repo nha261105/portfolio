@@ -29,7 +29,7 @@ portfolio/
     │   ├── sections/
     │   │   ├── About.tsx         # Bio and "What I'm doing"
     │   │   ├── Experience.tsx    # Work timeline, bullets grouped by project
-    │   │   ├── Projects.tsx      # One row per project + case-study modal
+    │   │   ├── Projects.tsx      # Résumé-style project list + case-study modal
     │   │   ├── Skills.tsx        # Grouped tech stack, education, "Beyond code"
     │   │   └── Contact.tsx       # Copy-email CTA + social links
     │   └── ui/

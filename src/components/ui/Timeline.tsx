@@ -8,7 +8,7 @@ export const TimelineItem = ({ title, subtitle, period, children }: {
   period: string;
   children?: ReactNode;
 }) => (
-  <motion.li variants={fadeUp} className="relative pl-7 pb-8 last:pb-0">
+  <motion.li variants={fadeUp} className="relative pl-8 pb-12 last:pb-0">
     <motion.span
       aria-hidden
       variants={popIn}

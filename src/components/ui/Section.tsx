@@ -18,9 +18,9 @@ const Section = ({ id, title, children }: SectionProps) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.05 }}
     transition={{ duration: 0.6, ease: easeOut }}
-    className={clsx(cardClass, 'scroll-mt-24 p-6 sm:p-8 lg:p-10')}
+    className={clsx(cardClass, 'scroll-mt-24 px-6 py-8 sm:p-10 lg:px-12 lg:py-12')}
   >
-    <header className="mb-6 pb-5 border-b border-line">
+    <header className="mb-8 lg:mb-10">
       <motion.h2
         initial={{ opacity: 0, x: -12 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -41,7 +41,7 @@ export const SubHeading = ({ icon, children }: { icon: ReactNode; children: Reac
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.45, ease: easeOut }}
-    className="flex items-center gap-3 text-lg sm:text-xl font-semibold text-fg mb-5"
+    className="flex items-center gap-3 text-lg sm:text-xl font-semibold text-fg mb-6"
   >
     <span className="text-accent flex items-center justify-center shrink-0">
       {icon}

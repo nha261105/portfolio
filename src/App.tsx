@@ -25,13 +25,13 @@ function App() {
         <div className="relative min-h-screen bg-bg text-fg">
           <ScrollProgress />
           <div
-            className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-10
-                       grid grid-cols-[minmax(0,1fr)] gap-5 lg:gap-6 lg:grid-cols-[320px_minmax(0,1fr)] items-start"
+            className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12
+                       grid grid-cols-[minmax(0,1fr)] gap-6 lg:gap-10 lg:grid-cols-[320px_minmax(0,1fr)] items-start"
           >
             <Sidebar />
-            <div className="min-w-0 space-y-5 lg:space-y-6">
+            <div className="min-w-0 space-y-6 lg:space-y-8">
               <Topbar />
-              <main className="space-y-5 lg:space-y-6">
+              <main className="space-y-6 lg:space-y-8">
                 <About />
                 <Experience />
                 <Projects />

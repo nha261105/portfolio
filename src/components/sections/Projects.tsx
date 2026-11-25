@@ -21,7 +21,7 @@ const StatusBadge = ({ status, className }: { status: ProjectStatus; className?:
   return (
     <span
       className={clsx(
-        'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[11px] font-medium backdrop-blur-sm',
+        'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-xs font-medium',
         statusStyle[status],
         className
       )}
@@ -29,42 +29,6 @@ const StatusBadge = ({ status, className }: { status: ProjectStatus; className?:
       <span className="w-1.5 h-1.5 rounded-full bg-current" aria-hidden />
       {ui.projects.status[status]}
     </span>
-  );
-};
-
-/** Card / modal header visual: the screenshot when there is one, otherwise the architecture diagram. */
-const Preview = ({ project, className }: { project: Project; className?: string }) => {
-  const { ui } = useLang();
-  return (
-    <div className={clsx('relative overflow-hidden bg-surface-2', className)}>
-      {project.image ? (
-        <img
-          src={project.image}
-          alt={`${project.name} ${ui.projects.screenshot}`}
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover object-top"
-        />
-      ) : (
-        <>
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-60"
-            style={{
-              backgroundImage: 'radial-gradient(var(--line-strong) 1px, transparent 1px)',
-              backgroundSize: '16px 16px',
-            }}
-          />
-          <div className="absolute inset-0 flex items-center justify-center p-4">
-            <ArchitectureDiagram
-              spec={project.diagram}
-              label={`${project.name} ${ui.projects.diagramLabel}`}
-              compact
-              className="max-h-full"
-            />
-          </div>
-        </>
-      )}
-    </div>
   );
 };
 
@@ -224,56 +188,63 @@ const Projects = () => {
   const { t, ui } = useLang();
   const [selected, setSelected] = useState<Project | null>(null);
 
-  const visible = projects;
 
   return (
     <Section id="projects" title={ui.section.projects}>
-      {/* One project per row: preview on the left, summary on the right */}
-      <motion.div layout className="flex flex-col gap-4">
-        <AnimatePresence mode="popLayout">
-          {visible.map((project, i) => (
-            <motion.button
-              layout
-              key={project.id}
-              type="button"
-              onClick={() => setSelected(project)}
-              // Each card animates itself: cards re-mounted by the filter must not depend on the parent's state.
-              variants={{
-                hidden: { opacity: 0, y: 18 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut, delay: i * 0.08 } },
-              }}
-              initial="hidden"
-              whileInView="show"
-              viewport={inView}
-              exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.2 } }}
-              className="group text-left grid sm:grid-cols-[minmax(0,260px)_minmax(0,1fr)] rounded-2xl border border-line
-                         bg-surface-2/60 overflow-hidden hover:border-accent/40 transition-colors duration-300"
-            >
-              <div className="relative">
-                <Preview project={project} className="h-44 sm:h-full sm:min-h-[180px] border-b sm:border-b-0 sm:border-r border-line" />
-                <StatusBadge status={project.status} className="absolute top-3 left-3 bg-surface/80" />
-              </div>
-              <div className="p-5 sm:p-6 flex flex-col min-w-0">
-                <p className="text-xs font-medium text-subtle tabular-nums">
-                  {t(project.period)} · {t(project.team)}
-                </p>
-                <h3 className="mt-1.5 text-lg sm:text-xl font-semibold text-fg group-hover:text-accent transition-colors">
-                  {project.name}
-                </h3>
-                <p className="text-sm text-muted mt-0.5">{t(project.tagline)}</p>
-                <div className="flex flex-wrap gap-1.5 mt-4">
-                  {project.tech.slice(0, 5).map((tech) => <span key={tech} className={chipClass}>{tech}</span>)}
-                  {project.tech.length > 5 && <span className={chipClass}>+{project.tech.length - 5}</span>}
-                </div>
-                <span className="mt-4 sm:mt-auto sm:pt-4 inline-flex items-center gap-1 text-sm font-medium text-accent">
+      {/* Résumé-style list: meta on the left, the project on the right, hairlines between */}
+      <div className="divide-y divide-line">
+        {projects.map((project, i) => (
+          <motion.article
+            key={project.id}
+            variants={{
+              hidden: { opacity: 0, y: 14 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut, delay: i * 0.06 } },
+            }}
+            initial="hidden"
+            whileInView="show"
+            viewport={inView}
+            className="grid gap-3 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-10 py-9 first:pt-0 last:pb-0"
+          >
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:flex-col sm:items-start sm:pt-1">
+              <p className="text-sm font-medium text-fg tabular-nums">{t(project.period)}</p>
+              <p className="text-sm text-subtle">{t(project.team)}</p>
+              <StatusBadge status={project.status} />
+            </div>
+
+            <div className="min-w-0">
+              <h3 className="text-xl font-semibold text-fg">{project.name}</h3>
+              <p className="text-muted mt-1">{t(project.tagline)}</p>
+              <ul className="mt-4 space-y-2 max-w-[64ch]">
+                {project.highlights.slice(0, 3).map((h) => (
+                  <li key={h.en} className="flex gap-2.5 text-[0.9375rem] text-muted leading-relaxed">
+                    <span className="text-subtle select-none" aria-hidden>•</span>
+                    <span>{t(h)}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm text-subtle">{project.tech.join(', ')}</p>
+              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium">
+                <button
+                  type="button"
+                  onClick={() => setSelected(project)}
+                  className="group inline-flex items-center gap-1 text-accent hover:text-accent-hover transition-colors"
+                >
                   {ui.projects.viewDetails}
                   <FiArrowUpRight className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </span>
+                </button>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-muted hover:text-fg transition-colors"
+                >
+                  <FiGithub /> GitHub
+                </a>
               </div>
-            </motion.button>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+            </div>
+          </motion.article>
+        ))}
+      </div>
 
       <AnimatePresence>
         {selected && <ProjectModal project={selected} onClose={() => setSelected(null)} />}
