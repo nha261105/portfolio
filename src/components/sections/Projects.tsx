@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FiArrowUpRight, FiExternalLink, FiGithub, FiX } from 'react-icons/fi';
 import clsx from 'clsx';
@@ -8,7 +8,6 @@ import Section from '../ui/Section';
 import ArchitectureDiagram from '../ui/ArchitectureDiagram';
 import { chipClass } from '../ui/card';
 import { easeOut, fadeUp, inView, staggerContainer } from '../../lib/motion';
-import { trackSpotlight } from '../../lib/spotlight';
 import { useLang } from '../../i18n/context';
 
 const statusStyle: Record<ProjectStatus, string> = {
@@ -43,7 +42,7 @@ const Preview = ({ project, className }: { project: Project; className?: string 
           src={project.image}
           alt={`${project.name} ${ui.projects.screenshot}`}
           loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+          className="absolute inset-0 w-full h-full object-cover object-top"
         />
       ) : (
         <>
@@ -55,7 +54,7 @@ const Preview = ({ project, className }: { project: Project; className?: string 
               backgroundSize: '16px 16px',
             }}
           />
-          <div className="absolute inset-0 flex items-center justify-center p-4 transition-transform duration-500 group-hover:scale-[1.04]">
+          <div className="absolute inset-0 flex items-center justify-center p-4">
             <ArchitectureDiagram
               spec={project.diagram}
               label={`${project.name} ${ui.projects.diagramLabel}`}
@@ -144,7 +143,7 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
         <div className="p-6 sm:p-8">
           <div className="flex flex-wrap items-center gap-2 pr-10">
             <StatusBadge status={project.status} />
-            <p className="font-mono text-xs text-subtle">
+            <p className="text-xs font-medium text-subtle tabular-nums">
               {t(project.period)} · {t(project.team)}
             </p>
           </div>
@@ -198,8 +197,8 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-accent text-accent-fg text-sm font-medium
-                         hover:bg-accent-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cta text-cta-fg text-sm font-medium
+                         hover:bg-cta-hover transition-colors"
             >
               <FiGithub /> GitHub
             </a>
@@ -223,47 +222,14 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
 
 const Projects = () => {
   const { t, ui } = useLang();
-  const stacks = useMemo(() => [...new Set(projects.map((p) => p.stack))], []);
-  const [filter, setFilter] = useState<string | null>(null);
   const [selected, setSelected] = useState<Project | null>(null);
 
-  const visible = filter ? projects.filter((p) => p.stack === filter) : projects;
-  const filters: { key: string | null; label: string }[] = [
-    { key: null, label: ui.projects.all },
-    ...stacks.map((s) => ({ key: s, label: s })),
-  ];
+  const visible = projects;
 
   return (
     <Section id="projects" title={ui.section.projects}>
-      <div role="group" aria-label={ui.projects.filterLabel} className="flex flex-wrap gap-2 mb-6">
-        {filters.map((f) => {
-          const active = filter === f.key;
-          return (
-            <motion.button
-              key={f.key ?? 'all'}
-              type="button"
-              onClick={() => setFilter(f.key)}
-              aria-pressed={active}
-              whileTap={{ scale: 0.94 }}
-              className={clsx(
-                'relative px-4 py-1.5 rounded-xl text-sm font-medium border transition-colors',
-                active ? 'text-accent border-accent/30' : 'border-line text-muted hover:text-fg hover:border-line-strong'
-              )}
-            >
-              {active && (
-                <motion.span
-                  layoutId="project-filter"
-                  className="absolute inset-0 rounded-xl bg-accent-soft"
-                  transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-                />
-              )}
-              <span className="relative">{f.label}</span>
-            </motion.button>
-          );
-        })}
-      </div>
-
-      <motion.div layout className="grid sm:grid-cols-2 gap-5">
+      {/* One project per row: preview on the left, summary on the right */}
+      <motion.div layout className="flex flex-col gap-4">
         <AnimatePresence mode="popLayout">
           {visible.map((project, i) => (
             <motion.button
@@ -271,7 +237,6 @@ const Projects = () => {
               key={project.id}
               type="button"
               onClick={() => setSelected(project)}
-              onMouseMove={trackSpotlight}
               // Each card animates itself: cards re-mounted by the filter must not depend on the parent's state.
               variants={{
                 hidden: { opacity: 0, y: 18 },
@@ -280,38 +245,30 @@ const Projects = () => {
               initial="hidden"
               whileInView="show"
               viewport={inView}
-              exit={{ opacity: 0, scale: 0.94, transition: { duration: 0.2 } }}
-              whileHover={{ y: -6, transition: { type: 'spring', stiffness: 320, damping: 22 } }}
-              whileTap={{ scale: 0.98 }}
-              className="spotlight group text-left flex flex-col rounded-2xl border border-line bg-surface-2/60 overflow-hidden
-                         hover:border-accent/40 hover:shadow-xl hover:shadow-accent/10 transition-[border-color,box-shadow] duration-300"
+              exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.2 } }}
+              className="group text-left grid sm:grid-cols-[minmax(0,260px)_minmax(0,1fr)] rounded-2xl border border-line
+                         bg-surface-2/60 overflow-hidden hover:border-accent/40 transition-colors duration-300"
             >
               <div className="relative">
-                <Preview project={project} className="h-44 border-b border-line" />
+                <Preview project={project} className="h-44 sm:h-full sm:min-h-[180px] border-b sm:border-b-0 sm:border-r border-line" />
                 <StatusBadge status={project.status} className="absolute top-3 left-3 bg-surface/80" />
-                <span
-                  className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100
-                             bg-black/30 backdrop-blur-[2px] transition-opacity duration-300"
-                  aria-hidden
-                >
-                  <span
-                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface text-fg text-sm font-medium shadow-lg
-                               translate-y-2 group-hover:translate-y-0 transition-transform duration-300"
-                  >
-                    {ui.projects.viewDetails} <FiArrowUpRight />
-                  </span>
-                </span>
               </div>
-              <div className="p-5 flex flex-col flex-1">
-                <p className="font-mono text-xs text-subtle">{t(project.period)}</p>
-                <h3 className="mt-1.5 text-lg font-semibold text-fg group-hover:text-accent transition-colors">
+              <div className="p-5 sm:p-6 flex flex-col min-w-0">
+                <p className="text-xs font-medium text-subtle tabular-nums">
+                  {t(project.period)} · {t(project.team)}
+                </p>
+                <h3 className="mt-1.5 text-lg sm:text-xl font-semibold text-fg group-hover:text-accent transition-colors">
                   {project.name}
                 </h3>
                 <p className="text-sm text-muted mt-0.5">{t(project.tagline)}</p>
                 <div className="flex flex-wrap gap-1.5 mt-4">
-                  {project.tech.slice(0, 4).map((tech) => <span key={tech} className={chipClass}>{tech}</span>)}
-                  {project.tech.length > 4 && <span className={chipClass}>+{project.tech.length - 4}</span>}
+                  {project.tech.slice(0, 5).map((tech) => <span key={tech} className={chipClass}>{tech}</span>)}
+                  {project.tech.length > 5 && <span className={chipClass}>+{project.tech.length - 5}</span>}
                 </div>
+                <span className="mt-4 sm:mt-auto sm:pt-4 inline-flex items-center gap-1 text-sm font-medium text-accent">
+                  {ui.projects.viewDetails}
+                  <FiArrowUpRight className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
               </div>
             </motion.button>
           ))}

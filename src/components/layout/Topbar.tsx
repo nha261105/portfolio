@@ -82,7 +82,7 @@ const Topbar = () => {
             );
           })}
         </ul>
-        <div className="flex items-center gap-1.5 shrink-0">
+        <div className="hidden lg:flex items-center gap-1.5 shrink-0">
           <LanguageToggle />
           <ThemeToggle />
         </div>

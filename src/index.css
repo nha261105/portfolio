@@ -10,36 +10,44 @@
 ------------------------------------------------------------------- */
 :root,
 :root[data-theme="dark"] {
-  --bg: #121214;
-  --surface: #1a1a1d;
-  --surface-2: #222226;
-  --line: rgb(255 255 255 / 0.08);
-  --line-strong: rgb(255 255 255 / 0.16);
-  --fg: #f4f4f5;
-  --muted: #a1a1aa;
-  --subtle: #71717a;
-  --accent: #3b82f6;
-  --accent-hover: #60a5fa;
-  --accent-fg: #ffffff;
-  --accent-soft: rgb(59 130 246 / 0.12);
-  --glow: rgb(59 130 246 / 0.18);
+  /* black + white, navy accent (lightened so it stays readable on black) */
+  --bg: #0b0c0f;
+  --surface: #131519;
+  --surface-2: #1a1d23;
+  --line: rgb(255 255 255 / 0.07);
+  --line-strong: rgb(255 255 255 / 0.14);
+  --fg: #f3f4f6;
+  --muted: #a7adb9;
+  --subtle: #7e8492;
+  --accent: #8fa8dc;
+  --accent-hover: #abbfe7;
+  --accent-fg: #0b1426;
+  --cta: #24437a;
+  --cta-hover: #2d5293;
+  --cta-fg: #ffffff;
+  --accent-soft: rgb(143 168 220 / 0.12);
+  --glow: rgb(143 168 220 / 0.12);
   color-scheme: dark;
 }
 
 :root[data-theme="light"] {
-  --bg: #f8f9fb;
+  /* white + near-black, navy accent */
+  --bg: #f4f5f7;
   --surface: #ffffff;
-  --surface-2: #f1f3f6;
-  --line: rgb(15 23 42 / 0.08);
-  --line-strong: rgb(15 23 42 / 0.16);
-  --fg: #111827;
-  --muted: #4b5563;
-  --subtle: #6b7280;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
+  --surface-2: #f4f5f8;
+  --line: rgb(11 18 36 / 0.08);
+  --line-strong: rgb(11 18 36 / 0.16);
+  --fg: #0d1017;
+  --muted: #4a5060;
+  --subtle: #6b7180;
+  --accent: #1f3a68;
+  --accent-hover: #162c52;
   --accent-fg: #ffffff;
-  --accent-soft: rgb(37 99 235 / 0.08);
-  --glow: rgb(37 99 235 / 0.12);
+  --cta: #1f3a68;
+  --cta-hover: #162c52;
+  --cta-fg: #ffffff;
+  --accent-soft: rgb(31 58 104 / 0.08);
+  --glow: rgb(31 58 104 / 0.08);
   color-scheme: light;
 }
 
@@ -56,9 +64,13 @@
   --color-accent-hover: var(--accent-hover);
   --color-accent-fg: var(--accent-fg);
   --color-accent-soft: var(--accent-soft);
+  --color-cta: var(--cta);
+  --color-cta-hover: var(--cta-hover);
+  --color-cta-fg: var(--cta-fg);
   --color-glow: var(--glow);
 
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Bricolage Grotesque", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "Fira Code", monospace;
 }
 
@@ -71,6 +83,13 @@
   body {
     @apply bg-bg text-fg font-sans antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Headings use the display face; body text stays in Inter */
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
   ::selection {
@@ -119,26 +138,6 @@
 .theme-switching,
 .theme-switching * {
   transition: none !important;
-}
-
-/* Cursor-following glow on cards (position fed by lib/spotlight.ts) */
-.spotlight {
-  position: relative;
-  isolation: isolate;
-}
-.spotlight::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), var(--glow), transparent 65%);
-}
-.spotlight:hover::before {
-  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -6,6 +6,8 @@ import clsx from 'clsx';
 import { personalInfo } from '../../constants/data';
 import { cardClass } from '../ui/card';
 import { easeOut, fadeUp, staggerContainer } from '../../lib/motion';
+import ThemeToggle from './ThemeToggle';
+import LanguageToggle from './LanguageToggle';
 import { useLang } from '../../i18n/context';
 import type { Text } from '../../i18n/types';
 
@@ -38,13 +40,12 @@ const Details = () => {
       {contactItems.map((item) => (
         <motion.li key={item.key} variants={fadeUp} className="group flex items-center gap-3.5 min-w-0">
           <span
-            className="w-10 h-10 rounded-xl border border-line bg-surface-2 text-accent flex items-center justify-center shrink-0
-                       transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105"
+            className="w-10 h-10 rounded-xl bg-accent-soft text-accent flex items-center justify-center shrink-0"
           >
             {item.icon}
           </span>
           <div className="min-w-0 text-left">
-            <p className="text-[11px] uppercase tracking-wider text-subtle">{ui.sidebar[item.key]}</p>
+            <p className="text-xs text-subtle">{ui.sidebar[item.key]}</p>
             {item.href ? (
               <a
                 href={item.href}
@@ -71,9 +72,6 @@ const Details = () => {
           rel="noopener noreferrer"
           aria-label={s.label}
           title={s.label}
-          whileHover={{ y: -3, scale: 1.08 }}
-          whileTap={{ scale: 0.92 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 18 }}
           className="w-10 h-10 flex items-center justify-center rounded-xl border border-line bg-surface-2 hover:border-accent/50 transition-colors"
         >
           {s.icon}
@@ -84,10 +82,8 @@ const Details = () => {
       variants={fadeUp}
       href={personalInfo.resume}
       download
-      whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.97 }}
-      className="group mt-6 flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-accent text-accent-fg
-                 font-medium shadow-lg shadow-accent/25 hover:bg-accent-hover hover:shadow-accent/40 transition-[background-color,box-shadow]"
+      className="group mt-6 flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-cta text-cta-fg
+                 font-medium hover:bg-cta-hover transition-colors"
     >
       <FiDownload size={17} className="transition-transform duration-300 group-hover:translate-y-0.5" /> {ui.sidebar.downloadCv}
     </motion.a>
@@ -113,14 +109,8 @@ const Sidebar = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: 'spring', stiffness: 220, damping: 20, delay: 0.1 }}
-          whileHover={{ scale: 1.04, rotate: -2 }}
-          className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-36 lg:h-36 rounded-2xl lg:rounded-3xl p-[3px] overflow-hidden shrink-0"
+          className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-36 lg:h-36 rounded-2xl lg:rounded-3xl p-[3px] overflow-hidden shrink-0 bg-accent-soft ring-1 ring-line"
         >
-          <div
-            aria-hidden
-            className="absolute -inset-1/2 animate-spin-slow"
-            style={{ background: 'conic-gradient(from 0deg, transparent 0deg, var(--accent) 90deg, transparent 180deg, var(--accent) 270deg, transparent 360deg)' }}
-          />
           <div className="relative w-full h-full rounded-[13px] lg:rounded-[21px] overflow-hidden bg-surface-2">
             <img src={personalInfo.avatar} alt={personalInfo.name} className="w-full h-full object-cover" />
           </div>
@@ -132,9 +122,9 @@ const Sidebar = () => {
           animate="show"
           className="min-w-0 flex-1 lg:flex-none pr-11 lg:pr-0"
         >
-          <motion.h1 variants={fadeUp} className="text-lg sm:text-xl font-bold tracking-tight text-fg">
-            <span className="whitespace-nowrap">{personalInfo.name}</span>{' '}
-            <span className="font-medium text-muted whitespace-nowrap">({personalInfo.nickname})</span>
+          <motion.h1 variants={fadeUp} className="text-xl sm:text-2xl font-bold text-fg">
+            <span className="block">{personalInfo.name}</span>
+            <span className="block mt-0.5 text-sm font-medium text-muted">{personalInfo.nickname}</span>
           </motion.h1>
           <motion.span
             variants={fadeUp}
@@ -142,6 +132,11 @@ const Sidebar = () => {
           >
             {personalInfo.role}
           </motion.span>
+          {/* On mobile the topbar only holds the section tabs */}
+          <motion.div variants={fadeUp} className="flex items-center gap-1.5 mt-3 lg:hidden">
+            <LanguageToggle />
+            <ThemeToggle />
+          </motion.div>
         </motion.div>
       </div>
 

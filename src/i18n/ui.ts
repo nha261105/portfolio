@@ -2,8 +2,8 @@ import type { Lang } from './types';
 
 /** Interface strings (labels, buttons, headings). Content lives in constants/data.ts. */
 const en = {
-  nav: { about: 'About', resume: 'Resume', projects: 'Projects', contact: 'Contact' },
-  section: { about: 'About Me', resume: 'Resume', projects: 'Projects', contact: 'Contact' },
+  nav: { about: 'About', experience: 'Experience', projects: 'Projects', skills: 'Skills', contact: 'Contact' },
+  section: { about: 'About Me', experience: 'Experience', projects: 'Projects', skills: 'Skills & Education', contact: 'Contact' },
   about: { whatIDo: "What I'm doing", beyondCode: 'Beyond code' },
   resume: { experience: 'Experience', education: 'Education', techStack: 'Tech Stack', concepts: 'Concepts' },
   techGroup: {
@@ -53,8 +53,8 @@ const en = {
 export type UIStrings = typeof en;
 
 const vi: UIStrings = {
-  nav: { about: 'Giới thiệu', resume: 'Hồ sơ', projects: 'Dự án', contact: 'Liên hệ' },
-  section: { about: 'Giới thiệu', resume: 'Hồ sơ', projects: 'Dự án', contact: 'Liên hệ' },
+  nav: { about: 'Giới thiệu', experience: 'Kinh nghiệm', projects: 'Dự án', skills: 'Kỹ năng', contact: 'Liên hệ' },
+  section: { about: 'Giới thiệu', experience: 'Kinh nghiệm', projects: 'Dự án', skills: 'Kỹ năng & Học vấn', contact: 'Liên hệ' },
   about: { whatIDo: 'Công việc của tôi', beyondCode: 'Ngoài code' },
   resume: { experience: 'Kinh nghiệm', education: 'Học vấn', techStack: 'Công nghệ', concepts: 'Khái niệm' },
   techGroup: {

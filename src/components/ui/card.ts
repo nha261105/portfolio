@@ -1,6 +1,6 @@
 /** Base surface style shared by every card on the page. */
 export const cardClass =
-  'rounded-2xl border border-line bg-surface shadow-sm shadow-black/[0.03] transition-colors duration-300';
+  'rounded-2xl border border-line bg-surface transition-colors duration-300';
 
 /** Card that reacts to hover (links, interactive tiles). */
 export const cardHoverClass = 'hover:border-accent/40 hover:bg-surface-2';

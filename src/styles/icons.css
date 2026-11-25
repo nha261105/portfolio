@@ -41,3 +41,12 @@
 [data-theme="dark"] .ci-markdown {
   filter: invert(1);
 }
+
+/* Added 2026-11-25 for the CV-aligned tech stack (same source and commit as above) */
+.ci-typescript{content:url("/icons/typescript.svg")}
+.ci-nodejs{content:url("/icons/nodejs.svg")}
+.ci-mongodb{content:url("/icons/mongodb.svg")}
+.ci-redis{content:url("/icons/redis.svg")}
+.ci-nginx{content:url("/icons/nginx.svg")}
+.ci-gitlab{content:url("/icons/gitlab.svg")}
+.ci-claude{content:url("/icons/claude.svg")}

@@ -109,3 +109,44 @@ export const interactHubDiagram: DiagramSpec = {
     { from: 'ghcr', to: 'app', label: 'deploy' },
   ],
 };
+
+export const papersDiagram: DiagramSpec = {
+  width: 800,
+  height: 262,
+  nodes: [
+    { id: 'ui', label: 'React UI', sub: 'search · read', x: 20, y: 105, w: 130 },
+    { id: 'api', label: 'FastAPI', sub: 'server.py', x: 225, y: 105, w: 120, accent: true },
+    { id: 'src', label: 'Source interface', sub: 'paperfetch', x: 420, y: 24, w: 140, accent: true },
+    { id: 'arxiv', label: 'arXiv API', sub: '≥ 3 s between calls', x: 650, y: 24, w: 140 },
+    { id: 'db', label: 'SQLite', sub: 'library · notes', x: 420, y: 186, w: 140 },
+    { id: 'pdf', label: 'PDF files', sub: 'papers/', x: 650, y: 186, w: 140 },
+  ],
+  edges: [
+    { from: 'ui', to: 'api', label: 'REST' },
+    { from: 'api', to: 'src', label: 'search' },
+    { from: 'src', to: 'arxiv', label: 'throttled' },
+    { from: 'api', to: 'db' },
+    { from: 'api', to: 'pdf', label: 'download' },
+  ],
+};
+
+export const harnessDiagram: DiagramSpec = {
+  width: 840,
+  height: 262,
+  nodes: [
+    { id: 'you', label: 'You', sub: '/brief "what"', x: 20, y: 105, w: 110 },
+    { id: 'brief', label: 'Brief', sub: 'Stop 1 · ok', x: 185, y: 105, w: 120, accent: true },
+    { id: 'plan', label: 'Plan', sub: 'OpenSpec · Stop 2', x: 360, y: 24, w: 140 },
+    { id: 'build', label: 'Build + test', sub: 'agent or Orca worker', x: 360, y: 186, w: 140, accent: true },
+    { id: 'review', label: 'Review', sub: 'code review', x: 555, y: 105, w: 115 },
+    { id: 'pr', label: 'Pull request', sub: 'Stop 3 · done', x: 715, y: 105, w: 115, accent: true },
+  ],
+  edges: [
+    { from: 'you', to: 'brief' },
+    { from: 'brief', to: 'plan', label: 'large' },
+    { from: 'brief', to: 'build', label: 'small' },
+    { from: 'plan', to: 'build' },
+    { from: 'build', to: 'review' },
+    { from: 'review', to: 'pr' },
+  ],
+};

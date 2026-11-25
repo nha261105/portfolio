@@ -8,12 +8,12 @@ Personal portfolio of **Nguyễn Hoàng Anh (Ryan)**, Software Engineer.
 
 ## Features
 
-- **Sidebar + scrolling layout:** sticky profile card on the left; About, Resume, Projects and Contact sections scroll on the right
+- **Sidebar + scrolling layout:** sticky profile card on the left; About, Experience, Projects, Skills and Contact sections scroll on the right
 - **Sticky topbar** with scroll-spy highlighting; every section has a shareable link (`/#projects`)
-- **English / Vietnamese:** EN/VI switch in the topbar; defaults to the browser language and remembers the choice
+- **English / Vietnamese:** EN/VI switch in the topbar (in the profile card on mobile); defaults to the browser language and remembers the choice
 - **Light / dark theme:** the toggle reveals the new theme as a growing circle; follows the OS setting on first visit and remembers the choice
-- **Projects:** status badges, filter by language, case-study modal (Problem → Solution → Architecture → Highlights → Next steps) with animated, theme-aware architecture diagrams
-- **Motion:** staggered reveals, cursor-following spotlight on cards, scroll progress bar. Everything respects `prefers-reduced-motion`
+- **Projects:** one row per project with status badges, case-study modal (Problem → Solution → Architecture → Highlights → Next steps) with animated, theme-aware architecture diagrams
+- **Motion:** staggered reveals and a scroll progress bar, kept deliberately light. Everything respects `prefers-reduced-motion`
 - **Responsive:** on mobile the profile card collapses and the layout stacks
 - **SEO / sharing:** Open Graph + Twitter card image, canonical URL, `robots.txt`, `sitemap.xml`
 
